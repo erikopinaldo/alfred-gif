@@ -385,7 +385,7 @@
 		};
 		D078D373265E3DE60019BAE2 /* XCRemoteSwiftPackageReference "AlfredSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-pennyworth/AlfredSwift";
+			repositoryURL = "https://github.com/erikopinaldo/AlfredSwift";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 0.1.4;
