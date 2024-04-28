@@ -341,8 +341,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 0.3.5;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 0.3.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = mr.pennyworth.AlfredGifBrowser;
@@ -385,7 +385,7 @@
 		};
 		D078D373265E3DE60019BAE2 /* XCRemoteSwiftPackageReference "AlfredSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-pennyworth/AlfredSwift";
+			repositoryURL = "https://github.com/erikopinaldo/AlfredSwift";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 0.1.4;
