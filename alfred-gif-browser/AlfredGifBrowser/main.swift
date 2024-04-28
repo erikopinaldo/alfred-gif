@@ -145,14 +145,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let wv = self.webview
 
         let event_location = event.locationInWindow
-        let local_point = win.convert(event_location, toView: wv)
+        // let local_point = win.convert(event_location, toView: wv)
 
         // apple coords are from bottom left,
         // inside the webview, in the web world,
         // they are from top left
         self.mouseAtInWebviewViewport(
-          x: local_point.x,
-          y: local_point.y
+          x: event_location.x,
+          y: event_location.y
         )
       }
     )
