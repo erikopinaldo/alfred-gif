@@ -181,7 +181,7 @@ class Nasa {
       }
   }
 
-  func parse(
+  static func parse(
     _ response: DataResponse<Response, AFError>,
     then callback: @escaping (GifSearchResult) -> ()
   ) {
