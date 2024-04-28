@@ -165,19 +165,12 @@ class Giphy {
 }
 
 class Nasa {
+  static let url = "https://images-api.nasa.gov/search"
 
-  func search(
+  static func search(
     query: String,
     then callback: @escaping (GifSearchResult) -> ()
   ) {
-    search(query, then: callback)
-  }
-
-  private func search(
-    _ query: String,
-    then callback: @escaping (GifSearchResult) -> ()
-  ) {
-    let url = "https://images-api.nasa.gov/search"
     let params: [String: Codable] = [
       "page_size": Limit,
       "q": query,
