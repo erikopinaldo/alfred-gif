@@ -173,7 +173,7 @@ class Nasa {
   ) {
     let params: [String: Codable] = [
       "page_size": Limit,
-      "media_type": "image"
+      "media_type": "image",
       "q": query,
     ]
     AF.request(url, parameters: params)
