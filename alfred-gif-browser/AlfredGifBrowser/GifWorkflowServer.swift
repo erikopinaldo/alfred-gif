@@ -2,7 +2,7 @@ import Alfred
 import Foundation
 
 enum GifSearchService: String {
-  case tenor, tenor_sticker, giphy, giphy_sticker
+  case tenor, tenor_sticker, giphy, giphy_sticker, nasa
 }
 
 class GifScriptFilter: AsyncScriptFilter {
@@ -28,6 +28,7 @@ class GifScriptFilter: AsyncScriptFilter {
     case .tenor_sticker: searcher = Tenor.searchStickers
     case .giphy: searcher = Giphy(key: query["key"]!).search
     case .giphy_sticker: searcher = Giphy(key: query["key"]!).searchStickers
+    case .nasa: searcher = Nasa.search
     }
 
     let htmlGen = HTMLFileGenerator(fileNamePrefix: service.rawValue)
