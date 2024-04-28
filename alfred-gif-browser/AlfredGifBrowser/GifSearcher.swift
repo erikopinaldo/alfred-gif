@@ -189,10 +189,11 @@ class Nasa {
     if let resp: Response = response.value {
       let gifs: [Gif] = resp.collection.items.map { result in
         let url = URL(string: result.links[0].href)!
+        let imageTitle = result.data[0].title
         log("\(url)")
-        log(result.data[0].title)
+        log(imageTitle)
         // return Gif(webURL: url, title: result.data[0].title)
-        return Gif(webURL: url)
+        return Gif(webURL: url,  title: imageTitle)
       }
       callback(GifSearchResult(credits: "Powered by NASA", gifs: gifs))
     } else {
