@@ -141,15 +141,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // https://developer.apple.com/documentation/appkit/nsevent/1529068-locationinwindow
         // https://stackoverflow.com/questions/15883305/using-convertpoint-to-get-the-relative-position-inside-a-parent-uiview
         let event_location = event.locationInWindow
-        let local_point = self.convertPoint(event_location, fromView: nil)
+        // let local_point = self.convertPoint(event_location, fromView: nil)
         let win = self.window.frame
         let wv = self.webview.frame
         // apple coords are from bottom left,
         // inside the webview, in the web world,
         // they are from top left
         self.mouseAtInWebviewViewport(
-          x: local_point.x,
-          y: local_point.y
+          x: event_location.x,
+          y: event_location.y
         )
       }
     )
