@@ -135,7 +135,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       handler: { (event: NSEvent) in
         // Get coordinates for mosue in view
         // https://stackoverflow.com/questions/5544551/how-to-find-the-location-of-the-mouse-in-objective-c
-        let mouse = self.convert(event.locationInWindow, from: nil)
+        // let mouse = self.convert(event.locationInWindow, from: nil)
+
+        // Apple's coordinate conversion
+        // https://developer.apple.com/documentation/appkit/nsevent/1529068-locationinwindow
+        NSPoint event_location = [NSEvent locationInWindow];
+        NSPoint local_point = [self convertPoint:event_location fromView:nil];
         let win = self.window.frame
         let wv = self.webview.frame
         // apple coords are from bottom left,
