@@ -141,8 +141,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // https://developer.apple.com/documentation/appkit/nsevent/1529068-locationinwindow
         // https://stackoverflow.com/questions/15883305/using-convertpoint-to-get-the-relative-position-inside-a-parent-uiview
 
-        let win = self.window.frame
-        let wv = self.webview.frame
+        let win = self.window
+        let wv = self.webview
 
         let event_location = event.locationInWindow
         let local_point = win.convert(event_location, toView: wv)
