@@ -8,63 +8,6 @@ import WebKit
 public let Port = 9911
 public let Workflow = Alfred.workflow(id: "mr.pennyworth.gif")!
 
-// Extensions to window and webview related classes for better mouse position handling
-// https://stackoverflow.com/questions/23787842/getting-nsevent-mouselocation-in-view-coordination-system
-public extension NSEvent {
-
-  /// Get the event mouse location in `view`.
-  func location(in view: NSView) -> CGPoint {
-    if let eventWindow = window, let viewWindow = view.window {
-      if eventWindow.windowNumber == viewWindow.windowNumber {
-        // same window, just convert
-        return view.convert(locationInWindow, from: nil)
-      } else {
-        // window not equal, check screen
-        if let eventScreen = eventWindow.screen, let viewScreen = viewWindow.screen {
-          if eventScreen.isEqual(to: viewScreen) {
-            // same screen, try to convert between windows
-            // screen coordinate zero point is at bottom left corner
-            let eventLocationInScreen = locationInWindow.translate(dx: eventWindow.frame.origin.x, dy: eventWindow.frame.origin.y)
-            let viewFrameInScreen = view.frameInWindow.translate(dx: viewWindow.frame.origin.x, dy: viewWindow.frame.origin.y)
-            return eventLocationInScreen.translate(dx: -viewFrameInScreen.origin.x, dy: -viewFrameInScreen.origin.y)
-          } else {
-            // different screen, try to convert to unified coordinate
-            let eventLocationInScreen = locationInWindow.translate(dx: eventWindow.frame.origin.x, dy: eventWindow.frame.origin.y)
-            let eventLocationInBase = eventLocationInScreen.translate(dx: eventScreen.frame.origin.x, dy: eventScreen.frame.origin.y)
-
-            let viewFrameInScreen = view.frameInWindow.translate(dx: viewWindow.frame.origin.x, dy: viewWindow.frame.origin.y)
-            let viewFrameInBase = viewFrameInScreen.translate(dx: viewScreen.frame.origin.x, dy: viewScreen.frame.origin.y)
-            return eventLocationInBase.translate(dx: -viewFrameInBase.origin.x, dy: -viewFrameInBase.origin.y)
-          }
-        }
-      }
-    }
-
-    // other unexpected cases, fall back to use `convert(_:from:)`
-    return view.convert(locationInWindow, from: nil)
-  }
-}
-
-public extension NSView {
-
-  /// The view's frame in its window.
-  var frameInWindow: CGRect {
-    convert(bounds, to: nil)
-  }
-}
-
-public extension CGRect {
-
-  /// Move/translate a `CGRect` by its origin..
-  /// - Parameters:
-  ///   - dx: The delta x.
-  ///   - dy: The delta y.
-  /// - Returns: A new `CGRect` with moved origin.
-  func translate(dx: CGFloat = 0, dy: CGFloat = 0) -> CGRect {
-    CGRect(origin: origin.translate(dx: dx, dy: dy), size: size)
-  }
-}
-
 class GifDraggerWebView: WKWebView, NSDraggingSource {
   var selectedGif: URL!
 
