@@ -190,7 +190,7 @@ class Nasa {
       let gifs: [Gif] = resp.collection.items.map { result in
         let url = URL(string: result.links[0].href)!
         log("\(url)")
-        log(result.data[0])
+        log(result.data[0].title)
         // return Gif(webURL: url, title: result.data[0].title)
         return Gif(webURL: url)
       }
