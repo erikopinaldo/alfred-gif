@@ -133,26 +133,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     NSEvent.addGlobalMonitorForEvents(
       matching: [NSEvent.EventTypeMask.mouseMoved],
       handler: { (event: NSEvent) in
-        // Get coordinates for mosue in view
-        // https://stackoverflow.com/questions/5544551/how-to-find-the-location-of-the-mouse-in-objective-c
-        // let mouse = self.convert(event.locationInWindow, from: nil)
-
-        // Apple's coordinate conversion
-        // https://developer.apple.com/documentation/appkit/nsevent/1529068-locationinwindow
-        // https://stackoverflow.com/questions/15883305/using-convertpoint-to-get-the-relative-position-inside-a-parent-uiview
-
-        let win = self.window
-        let wv = self.webview
-
+        let win = self.window.frame
+        let wv = self.webview.frame
         let event_location = event.locationInWindow
-        // let local_point = win.convert(event_location, toView: wv)
 
         // apple coords are from bottom left,
         // inside the webview, in the web world,
         // they are from top left
         self.mouseAtInWebviewViewport(
           x: event_location.x,
-          y: event_location.y
+          y: wv.height - event_location.y
         )
       }
     )
