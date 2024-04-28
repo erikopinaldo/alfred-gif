@@ -164,6 +164,69 @@ class Giphy {
   }
 }
 
+class Nasa {
+
+  func search(
+    query: String,
+    then callback: @escaping (GifSearchResult) -> ()
+  ) {
+    search(query, then: callback)
+  }
+
+  private func search(
+    _ query: String,
+    then callback: @escaping (GifSearchResult) -> ()
+  ) {
+    let url = "https://images-api.nasa.gov/search"
+    let params: [String: Codable] = [
+      "page_size": Limit,
+      "q": query,
+    ]
+    AF.request(url, parameters: params)
+      .responseDecodable(of: Response.self) { response in
+        self.parse(response, then: callback)
+      }
+  }
+
+  func parse(
+    _ response: DataResponse<Response, AFError>,
+    then callback: @escaping (GifSearchResult) -> ()
+  ) {
+    log("Query URL: \(response.request!.url!)")
+    if let resp: Response = response.value {
+      let gifs: [Gif] = resp.collection.items.map { result in
+        let url = URL(string: result.links[0].href)!
+        log("\(url)")
+        return Gif(webURL: url, title: result.data[0].title)
+      }
+      callback(GifSearchResult(credits: "Powered by NASA", gifs: gifs))
+    } else {
+      log("Error: couldn't parse: \(response)")
+    }
+  }
+
+  struct Response: Codable {
+    var collection: Collection
+
+    struct Collection: Codable {
+      var items: [Item]
+
+      struct Item: Codable {
+        var data: [DataItem]
+        var links: [Link]
+
+        struct DataItem: Codable {
+          var title: String
+        }
+
+        struct Link: Codable {
+          var href: String
+        }
+      }
+    }
+  }
+}
+
 /// Merge two dicts with the right one
 /// taking precedence in case of key collision
 func +<Key, Value> (lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
